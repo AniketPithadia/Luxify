@@ -1,5 +1,5 @@
 import MongoClient from "mongodb";
-import mongoose from "mongoose";
+
 import dotenv from "dotenv";
 dotenv.config();
 async function connectToMongoDB() {
@@ -19,8 +19,7 @@ async function connectToMongoDB() {
       console.log("Connected to MongoDB");
     })
     .catch((err) => {
-      console.error("Error connecting to MongoDB:", err);
-      throw err;
+      next(err);
     });
 }
 export default connectToMongoDB;
