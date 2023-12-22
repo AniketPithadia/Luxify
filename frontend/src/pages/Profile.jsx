@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { app } from "../firebase.js";
 import {
   getStorage,
@@ -181,23 +182,30 @@ const Profile = () => {
           {loading ? "Updating ..." : "Update"}
         </button>
       </form>
-      <div className="mt-3">
+      <Link to={"/create-listing"}>
+        <div className="cursor-pointer mt-3 bg-green-900 w-full text-center uppercase text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300 ">
+          Create a Listing
+        </div>
+      </Link>
+      <div className="flex gap-3 mt-3 text-center">
         <div
           onClick={deleteUser}
-          className="bg-red-800 w-full text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          className="bg-red-800 w-full text-white p-2 rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 cursor-pointer"
         >
           Delete Account
         </div>
         <div
           onClick={signOutUser}
-          className="mt-4 bg-slate-500 w-full text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          className=" bg-slate-500 w-full text-white p-2 rounded hover:bg-slate-600 focus:outline-none focus:ring focus:border-slate-300 cursor-pointer"
         >
           Sign Out
         </div>
       </div>
       {error ? <p className="text-center text-red-700">{error}</p> : ""}
       {updateSuccessMessage ? (
-        <p className="text-center text-green-700">User Updated Succesfully</p>
+        <p className="text-center mt-3 text-green-700">
+          User Updated Succesfully
+        </p>
       ) : (
         ""
       )}

@@ -95,14 +95,16 @@ const SignUp = () => {
           />
         </div>
 
-        <button
-          disabled={loading}
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-        >
-          {loading ? "Loading..." : "Sign Up"}
-        </button>
-        <OAuth />
+        <div className="flex flex-col gap-4">
+          <button
+            disabled={loading}
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          >
+            {loading ? "Loading..." : "Sign Up"}
+          </button>
+          <OAuth />
+        </div>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
