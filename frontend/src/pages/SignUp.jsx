@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
@@ -29,6 +30,7 @@ const SignUp = () => {
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
+        return;
       }
       setLoading(false);
       setError(null);
@@ -42,7 +44,7 @@ const SignUp = () => {
   return (
     <div className=" w-96 mx-auto mt-16">
       {error && <h3 className="text-red-800">{error}</h3>}
-      <h2 className="text-2xl font-semibold mb-6">Sign Up</h2>
+      <h2 className="text-2xl font-semibold mb-6">Hey there!😀 Sign Up</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -100,6 +102,7 @@ const SignUp = () => {
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>

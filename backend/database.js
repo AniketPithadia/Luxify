@@ -1,25 +1,15 @@
-import MongoClient from "mongodb";
-
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 async function connectToMongoDB() {
-  //   const uri = process.env.MONGO_URL;
-  //   const client = new MongoClient(uri);
-  //   try {
-  //     await client.connect();
-  //     console.log("Connected to MongoDB");
-  //     return client;
-  //   } catch (error) {
-  //     console.error("Error connecting to MongoDB:", error);
-  //     throw error;
-  //   }
-  await mongoose
-    .connect(process.env.MONGO_URL)
+  const uri = process.env.MONGO_URL;
+  mongoose
+    .connect(uri)
     .then(() => {
-      console.log("Connected to MongoDB");
+      console.log("Connected to MongoDB!");
     })
     .catch((err) => {
-      next(err);
+      console.log(err);
     });
 }
 export default connectToMongoDB;
