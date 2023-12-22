@@ -60,11 +60,23 @@ const Profile = () => {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           alt="profile"
           className="rounded-full w-24 h-24 object-cover hover:cursor-pointer self-center mt-3"
         />
-
+        {fileUploadError ? (
+          <span className="text-center text-red-500">
+            Error: Image Not Uploaded(Size should be less than 2MB)
+          </span>
+        ) : filePerc > 0 && filePerc < 100 ? (
+          <span className="text-center text-green-500">{`Uploading ${filePerc}%`}</span>
+        ) : filePerc == 100 ? (
+          <span className="text-center text-green-500">
+            Image Uploaded Successfully
+          </span>
+        ) : (
+          ""
+        )}
         <input
           type="text"
           id="username"
