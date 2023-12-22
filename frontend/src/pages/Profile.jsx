@@ -11,6 +11,12 @@ import {
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
 } from "../redux/user/userSlice.js";
 
 const Profile = () => {
@@ -43,6 +49,7 @@ const Profile = () => {
         setFilePerc(Math.round(progress));
       },
       (error) => {
+        console.log(error);
         setFileUploadError(true);
       },
       () => {
@@ -78,6 +85,38 @@ const Profile = () => {
       dispatch(updateUserFailure(error.message));
     }
   };
+
+  const deleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(null));
+    } catch (err) {
+      dispatch(deleteUserFailure(err.message));
+    }
+  };
+  const signOutUser = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch(`/api/auth/signout`);
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data.message));
+    } catch (err) {
+      dispatch(signOutUserFailure(err.message));
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -143,18 +182,18 @@ const Profile = () => {
         </button>
       </form>
       <div className="mt-3">
-        <button
-          type="submit"
+        <div
+          onClick={deleteUser}
           className="bg-red-800 w-full text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
         >
           Delete Account
-        </button>
-        <button
-          type="submit"
+        </div>
+        <div
+          onClick={signOutUser}
           className="mt-4 bg-slate-500 w-full text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
         >
           Sign Out
-        </button>
+        </div>
       </div>
       {error ? <p className="text-center text-red-700">{error}</p> : ""}
       {updateSuccessMessage ? (
