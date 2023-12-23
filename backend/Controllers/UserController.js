@@ -1,4 +1,5 @@
 import User from "../Models/User.js";
+import Listing from "../Models/Listing.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 
@@ -36,6 +37,17 @@ export const deleteUser = async (req, res, next) => {
     await User.findByIdAndDelete(req.params.id);
     res.clearCookie("access_token");
     res.status(200).json("User has been Deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserListings = async (req, res, next) => {
+  if (req.params.id !== req.user.id)
+    return next(errorHandler(403, "No access to this account"));
+  try {
+    const listings = await Listing.find({ userRef: req.params.id });
+    res.status(200).json(listings);
   } catch (error) {
     next(error);
   }
