@@ -1,5 +1,4 @@
 import { FaTrash } from "react-icons/fa";
-
 import { useEffect, useState } from "react";
 import {
   getDownloadURL,
@@ -73,6 +72,7 @@ const UpdateListing = () => {
           setUploading(false);
         })
         .catch((err) => {
+          console.log(err);
           setImageUploadError(
             "Image Upload failed (2MB image per image size)."
           );

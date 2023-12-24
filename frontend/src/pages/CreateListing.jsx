@@ -1,4 +1,3 @@
-import React from "react";
 import { FaTrash } from "react-icons/fa";
 
 import { useState } from "react";
@@ -53,6 +52,7 @@ const CreateListing = () => {
           setUploading(false);
         })
         .catch((err) => {
+          console.log(err);
           setImageUploadError(
             "Image Upload failed (2MB image per image size)."
           );

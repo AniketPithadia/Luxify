@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express from "express";
 import connectToMongoDB from "./database.js";
 import userRoutes from "./Routes/UserRoutes.js";
 import authRoutes from "./Routes/AuthRoutes.js";
