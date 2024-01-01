@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore from "swiper";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+
 import { useSelector } from "react-redux";
-import { Navigation } from "swiper/modules";
+
+import { Link } from "react-router-dom";
+
 import "swiper/css/bundle";
 import {
   FaBath,
@@ -16,7 +20,6 @@ import {
 import Contact from "../components/Contact";
 
 export default function Listing() {
-  SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -48,27 +51,27 @@ export default function Listing() {
   }, [params.listingId]);
 
   return (
-    <main>
+    <main className="listingDiv">
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong!</p>
       )}
       {listing && !loading && !error && (
         <div>
-          <Swiper navigation>
+          <Carousel className="z-[-10]">
             {listing.imageUrls.map((url) => (
-              <SwiperSlide key={url}>
-                <div
-                  className="h-[550px]"
-                  style={{
-                    background: `url(${url}) center no-repeat`,
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-              </SwiperSlide>
+              <div
+                key={url}
+                className="h-[280px] md:h-[560px]"
+                style={{
+                  background: `url(${url}) center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+              ></div>
             ))}
-          </Swiper>
-          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
+          </Carousel>
+
+          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-9 h-9 md:w-12 md:h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
             <FaShare
               className="text-slate-500"
               onClick={() => {
@@ -94,11 +97,11 @@ export default function Listing() {
               {listing.type === "rent" && " / month"}
             </p>
             <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
-              <FaMapMarkerAlt className="text-green-700" />
+              <FaMapMarkerAlt className="text-green-700" size={25} />
               {listing.address}
             </p>
             <div className="flex gap-4">
-              <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
+              <p className="bgBaseBrown w-full max-w-[200px] text-white text-center p-1 rounded-md">
                 {listing.type === "rent" ? "For Rent" : "For Sale"}
               </p>
               {listing.offer && (
@@ -133,10 +136,18 @@ export default function Listing() {
                 {listing.furnished ? "Furnished" : "Unfurnished"}
               </li>
             </ul>
+            {!currentUser && (
+              <Link to="/sign-in">
+                <div className="bgBaseBlue text-white text-center rounded-lg hover:opacity-95 p-2">
+                  Want to Contact the landlord?🤔 <br />{" "}
+                  <span className="uppercase">Sign In To Connect</span>
+                </div>
+              </Link>
+            )}
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button
                 onClick={() => setContact(true)}
-                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                className="bgBaseBlue text-white text-center rounded-lg uppercase hover:opacity-95 p-3"
               >
                 Contact landlord
               </button>

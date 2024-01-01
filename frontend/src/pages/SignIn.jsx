@@ -1,5 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { IoMdEye } from "react-icons/io";
+import { IoMdEyeOff } from "react-icons/io";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
+
 import {
   signInFailure,
   signInStart,
@@ -9,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
 const SignIn = () => {
   const navigate = useNavigate();
+  const [canUserSeePassword, setCanUserSeePassword] = useState(false);
 
   const { loading, error } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
@@ -36,12 +41,18 @@ const SignIn = () => {
       });
       const data = await res.json();
       if (data.success === false) {
+        enqueueSnackbar(data.message, { variant: "error" });
+
         dispatch(signInFailure(data.message));
         return;
       }
 
+      enqueueSnackbar("Signed In Successfully", { variant: "success" });
       dispatch(signInSuccess(data));
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+
       return;
     } catch (error) {
       dispatch(signInFailure(error.message));
@@ -49,8 +60,9 @@ const SignIn = () => {
   };
   return (
     <>
-      <div className=" w-96 mx-auto mt-16">
-        {error && <h3 className="text-red-800">{error}</h3>}
+      <div className=" w-96 mx-auto mt-52 mb-56 h-full">
+        <SnackbarProvider maxSnack={2} />
+
         <h2 className="text-2xl font-semibold mb-6">
           Welcome Back👋 , Sign In
         </h2>
@@ -67,31 +79,39 @@ const SignIn = () => {
               type="email"
               id="email"
               name="email"
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-orange-950"
               onChange={handleChange}
             />
           </div>
 
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-600 text-sm font-medium mb-2"
-            >
-              Password
-            </label>
+          <div className="flex items-center justify-between bg-white w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-orange-950">
             <input
-              type="password"
+              type={canUserSeePassword ? "text" : "password"}
               id="password"
+              className="w-full outline-none"
               name="password"
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500"
               onChange={handleChange}
             />
+
+            {canUserSeePassword ? (
+              <IoMdEye
+                size={25}
+                className="cursor-pointer"
+                onClick={() => setCanUserSeePassword(false)}
+              />
+            ) : (
+              <IoMdEyeOff
+                size={25}
+                className="cursor-pointer"
+                onClick={() => setCanUserSeePassword(true)}
+              />
+            )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mt-3">
             <button
               disabled={loading}
               type="submit"
-              className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+              className="bgBaseBrown  text-white p-2 rounded hover:bg-yellow-900 focus:outline-none focus:ring focus:border-orange-950"
             >
               {loading ? "Loading..." : "Sign In"}
             </button>

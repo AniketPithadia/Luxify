@@ -1,15 +1,101 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+body {
+  background-color: #fffafa;
+}
 .LogoContainer {
-  width: 200px;
-  object-fit: cover;
+  width: 180px;
+  height: 50px;
   @media (max-width: 600px) {
-    width: 150px;
+    width: 160px;
+    margin-left: -40px;
   }
 }
 .LogoContainer img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+}
+
+.awesomeForm {
+  background-color: #f0dbc0 !important;
+}
+.awesomeForm::placeholder {
+  color: #1f3440 !important;
+}
+
+.baseBrown {
+  color: #5d513f;
+}
+.mediumBrown {
+  color: #c6ad8f;
+}
+.lightBrown {
+  color: #fef3e9;
+}
+.baseBlue {
+  color: #22333c;
+}
+.lightBlue {
+  color: #7083ac;
+}
+.bgBaseBlue {
+  background-color: #22333c;
+}
+.bgLightBlue {
+  background-color: #96b2ef;
+}
+.bgLightBrown {
+  background-color: #fef3e9;
+}
+.bgBaseBrown {
+  background-color: #5d513f;
+}
+.bgMediumBrown {
+  background-color: #c6ad8f;
+}
+
+.houseAnimation {
+  width: 500px;
+}
+.listingDiv {
+  margin-top: 4.6rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #fff;
+
+  border-radius: 15px 0 15px 15px;
+
+  border: 1px solid #f7dbb1;
+  width: 200px;
+}
+
+.dropdown-menu ul li:first-of-type {
+  border-top: 0;
+}
+
+.deleteAccount:hover {
+  background-color: rgb(227, 87, 87);
+  color: white;
+}
+.dropdown-menu ul {
+  width: 100%;
+  padding: 1rem;
+}
+.dropdown-menu ul li {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu ul li:hover {
+  cursor: pointer;
+  background-color: #22333c;
+  color: white;
 }

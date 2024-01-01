@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { IoMdEye } from "react-icons/io";
+import { IoMdEyeOff } from "react-icons/io";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 const SignUp = () => {
@@ -6,6 +9,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [canUserSeePassword, setCanUserSeePassword] = useState(false);
 
   // Function to handle the input and handle errors on the form
   const handleChange = (e) => {
@@ -29,12 +33,16 @@ const SignUp = () => {
       const data = await res.json();
       if (data.success === false) {
         setLoading(false);
+        enqueueSnackbar(data.message, { variant: "error" });
         setError(data.message);
         return;
       }
       setLoading(false);
+      enqueueSnackbar("You're Signed Up", { variant: "success" });
       setError(null);
-      navigate("/sign-in");
+      setTimeout(() => {
+        navigate("/sign-in");
+      }, 2000);
       return;
     } catch (error) {
       setLoading(false);
@@ -42,15 +50,15 @@ const SignUp = () => {
     }
   };
   return (
-    <div className=" w-96 mx-auto mt-16">
-      {error && <h3 className="text-red-800">{error}</h3>}
+    <div className=" w-96 mx-auto mt-28 mb-24 h-full">
+      <SnackbarProvider />
       <h2 className="text-2xl font-semibold mb-6">Hey there!😀 Sign Up</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="username"
-            className="block text-gray-600 text-sm font-medium mb-2"
+            className="block text-gray-600 text-md font-medium mb-1"
           >
             Username
           </label>
@@ -58,7 +66,7 @@ const SignUp = () => {
             type="text"
             id="username"
             name="username"
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500"
+            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-orange-950"
             onChange={handleChange}
           />
         </div>
@@ -66,7 +74,7 @@ const SignUp = () => {
         <div className="mb-4">
           <label
             htmlFor="email"
-            className="block text-gray-600 text-sm font-medium mb-2"
+            className="block text-gray-600 text-md font-medium mb-1"
           >
             Email
           </label>
@@ -74,35 +82,52 @@ const SignUp = () => {
             type="email"
             id="email"
             name="email"
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500"
+            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-orange-950"
             onChange={handleChange}
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 ">
           <label
             htmlFor="password"
-            className="block text-gray-600 text-sm font-medium mb-2"
+            className="block text-gray-600 text-md font-medium mb-2"
           >
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500"
-            onChange={handleChange}
-          />
+          <div className="flex items-center justify-between w-full bg-white border border-gray-300 p-2 rounded focus:outline-none focus:border-orange-950">
+            <input
+              type={canUserSeePassword ? "text" : "password"}
+              id="password"
+              className="w-full outline-none"
+              name="password"
+              onChange={handleChange}
+            />
+
+            {canUserSeePassword ? (
+              <IoMdEye
+                size={25}
+                className="cursor-pointer"
+                onClick={() => setCanUserSeePassword(false)}
+              />
+            ) : (
+              <IoMdEyeOff
+                size={25}
+                className="cursor-pointer"
+                onClick={() => setCanUserSeePassword(true)}
+              />
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col gap-4">
           <button
             disabled={loading}
             type="submit"
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            className="bgBaseBrown  text-white p-2 rounded hover:bg-yellow-900 focus:outline-none focus:ring focus:border-orange-950"
           >
             {loading ? "Loading..." : "Sign Up"}
           </button>
+          <h5 className="text-center">OR</h5>
           <OAuth />
         </div>
       </form>
