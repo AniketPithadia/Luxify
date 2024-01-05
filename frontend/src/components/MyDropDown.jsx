@@ -14,6 +14,7 @@ import {
 
 export default function MyDropDown({ currentUser }) {
   const [open, setOpen] = useState(false);
+  const { _id } = currentUser;
   const dispatch = useDispatch();
   // Creating action for the notistack to show the notification before deleting the user
   const action = (snackbarId) => (
@@ -57,7 +58,7 @@ export default function MyDropDown({ currentUser }) {
     try {
       setOpen(!open);
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetch(`/api/user/delete/${_id}`, {
         method: "DELETE",
       });
       const data = await res.json();

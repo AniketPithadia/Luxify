@@ -19,6 +19,7 @@ const CreateListing = () => {
     name: "",
     description: "",
     address: "",
+    contactNumber: "",
     type: "rent",
     bedrooms: 1,
     bathrooms: 1,
@@ -32,7 +33,16 @@ const CreateListing = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(formData);
+
+  const [phoneValid, setPhoneValid] = useState(true);
+
+  // small functions to just validate phone
+  const validatePhone = (phone) => {
+    const pattern =
+      /^\+?1?[ -]?\(?([2-9][0-9]{2})\)?[ -]?([2-9][0-9]{2})[ -]?([0-9]{4})$/;
+    setPhoneValid(pattern.test(phone));
+    return +phone;
+  };
 
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -96,12 +106,17 @@ const CreateListing = () => {
     });
   };
   const handleChange = (e) => {
+    if (e.target.id === "contactNumber") {
+      formData.contactNumber = validatePhone(e.target.value);
+    }
+
     if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({
         ...formData,
         type: e.target.id,
       });
     }
+
     if (
       e.target.id === "parking" ||
       e.target.id === "furnished" ||
@@ -190,6 +205,21 @@ const CreateListing = () => {
             onChange={handleChange}
             value={formData.address}
           />
+          <input
+            type="text"
+            placeholder="Contact Number"
+            className="border p-3 rounded-lg"
+            id="contactNumber"
+            required
+            onChange={handleChange}
+            value={formData.contactNumber}
+          />
+          {!phoneValid && (
+            <span className="text-red-500">
+              Please enter a valid phone number
+            </span>
+          )}
+
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2">
               <input
@@ -361,7 +391,7 @@ const CreateListing = () => {
               ))}
           </div>
           <button
-            disabled={loading || uploading}
+            disabled={loading || uploading || !phoneValid}
             className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
             {loading ? "Creating..." : "Create listing"}

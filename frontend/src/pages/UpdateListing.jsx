@@ -18,6 +18,7 @@ const UpdateListing = () => {
     name: "",
     description: "",
     address: "",
+    contactNumber: "",
     type: "rent",
     bedrooms: 1,
     bathrooms: 1,
@@ -116,6 +117,7 @@ const UpdateListing = () => {
     });
   };
   const handleChange = (e) => {
+    formData.contactNumber = +formData.contactNumber;
     if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({
         ...formData,
@@ -209,6 +211,15 @@ const UpdateListing = () => {
             required
             onChange={handleChange}
             value={formData.address}
+          />
+          <input
+            type="text"
+            placeholder="Contact Number"
+            className="border p-3 rounded-lg"
+            id="contactNumber"
+            required
+            onChange={handleChange}
+            value={formData.contactNumber}
           />
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2">

@@ -71,16 +71,22 @@ export const google = async (req, res, next) => {
         password: hashedPassword,
         avatar: req.body.photo,
       });
-      await newUser.save();
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      const { password: pwd, ...rest } = user._doc;
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          maxAge: 24 * 60 * 60 * 1000,
+      await newUser
+        .save()
+        .then((user) => {
+          const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+          const { password: pwd, ...rest } = user._doc;
+          res
+            .cookie("access_token", token, {
+              httpOnly: true,
+              maxAge: 24 * 60 * 60 * 1000,
+            })
+            .status(200)
+            .json(user);
         })
-        .status(200)
-        .json(user);
+        .catch((err) => {
+          console.log(err);
+        });
     }
   } catch (err) {
     next(errorHandler(500, "Not able to sign in with google"));

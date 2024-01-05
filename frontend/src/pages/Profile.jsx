@@ -155,12 +155,6 @@ const Profile = () => {
       ) : (
         ""
       )}
-      {/* <button
-        onClick={handleShowListings}
-        className="bg-blue-500 w-full text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-      >
-        Show Listings
-      </button> */}
     </div>
   );
 };

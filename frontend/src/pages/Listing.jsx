@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 
-import "swiper/css/bundle";
 import {
   FaBath,
   FaBed,
@@ -152,7 +151,7 @@ export default function Listing() {
                 Contact landlord
               </button>
             )}
-            {contact && <Contact listing={listing} />}
+            {contact && <Contact listing={listing} currentUser={currentUser} />}
           </div>
         </div>
       )}
