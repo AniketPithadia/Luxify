@@ -12,6 +12,7 @@ import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import Footer from "./components/Footer";
 import PersonalListingPage from "./pages/PersonalListingPage";
+import ErrorPage from "./pages/ErrorPage";
 // import Chats from "./pages/Chats";
 
 const App = () => {
@@ -30,8 +31,8 @@ const App = () => {
           <Route path="/create-listing" element={<CreateListing />} />
           <Route path="/personal-listings" element={<PersonalListingPage />} />
           <Route path="/edit-listing/:listingId" element={<UpdateListing />} />
-          {/* <Route path="/chats" element={<Chats />} /> */}
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
