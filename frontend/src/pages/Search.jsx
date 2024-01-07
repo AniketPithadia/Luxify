@@ -229,7 +229,10 @@ const Search = () => {
                 <option value="createdAt_asc">Oldest</option>
               </select>
             </div>
-            <button className="bgBaseBlue text-white p-2 rounded-lg uppercase hover:opacity-95">
+            <button
+              type="submit"
+              className="bgBaseBlue text-white p-2 rounded-lg uppercase hover:opacity-95"
+            >
               Search
             </button>
           </form>

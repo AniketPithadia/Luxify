@@ -12,13 +12,8 @@ app.use(express.json());
 app.use(cookieParser());
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  connectToMongoDB()
-    .then(() => {
-      console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  connectToMongoDB();
+
   console.log("Server started");
 });
 
