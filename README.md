@@ -1,6 +1,7 @@
-# Luxify Real Estate App
+# Luxify Real Estate App 🔗 [LIVE DEMO](https://luxify.onrender.com)
+ 
 
-Luxify is a sophisticated real estate application that allows users to explore, list, and manage properties seamlessly. This MERN (MongoDB, Express.js, React, Node.js) stack application comes equipped with features such as user authentication, Google sign-in, listing management (add, edit, delete), view all listings, search functionality, and profile updates.
+Luxify is a sophisticated real estate application that allows users to explore, list, and manage properties seamlessly. This MERN (MongoDB, Express.js, React, Node.js) stack  comes equipped with features such as user authentication, Google sign-in, listing management (add, edit, delete), view all listings, search functionality, and profile updates.
 
 ## Features
 
