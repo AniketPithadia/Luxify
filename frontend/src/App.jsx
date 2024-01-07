@@ -13,7 +13,6 @@ import Search from "./pages/Search";
 import Footer from "./components/Footer";
 import PersonalListingPage from "./pages/PersonalListingPage";
 import ErrorPage from "./pages/ErrorPage";
-// import Chats from "./pages/Chats";
 
 const App = () => {
   return (
