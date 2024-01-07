@@ -50,7 +50,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className=" w-96 mx-auto mt-28 mb-24 h-full">
+    <div className=" w-96 mx-auto mt-28 mb-24 h-full p-5 md:p-0">
       <SnackbarProvider />
       <h2 className="text-2xl font-semibold mb-6">Hey there!😀 Sign Up</h2>
 

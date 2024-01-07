@@ -60,7 +60,7 @@ const SignIn = () => {
   };
   return (
     <>
-      <div className=" w-96 mx-auto mt-52 mb-56 h-full">
+      <div className=" w-96 mx-auto mt-52 mb-56 h-full p-5 md:p-0">
         <SnackbarProvider maxSnack={2} />
 
         <h2 className="text-2xl font-semibold mb-6">
