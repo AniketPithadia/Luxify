@@ -5,9 +5,9 @@ import userRoutes from "./Routes/UserRoutes.js";
 import authRoutes from "./Routes/AuthRoutes.js";
 import cookieParser from "cookie-parser";
 import listingRoutes from "./Routes/ListingRoutes.js";
-
+import cors from "cors";
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 const port = process.env.PORT || 5000;
