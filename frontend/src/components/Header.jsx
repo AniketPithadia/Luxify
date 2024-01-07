@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 z-50 w-full text-[#22333c]  bgLightBrown ">
-      <div className="flex justify-between gap-2 items-center max-w-6xl mx-auto py-3 px-4 z-50 ">
+      <div className="flex justify-between gap-2 items-center max-w-6xl mx-auto py-3 px-2 z-50 ">
         <Link to="/">
           <div className="LogoContainer">
             {windowSize ? (

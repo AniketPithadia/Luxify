@@ -93,7 +93,7 @@ export default function MyDropDown({ currentUser }) {
       <SnackbarProvider />
       <div className="menu-container relative " ref={menuRef}>
         <div
-          className="menu-trigger p-2 cursor-pointer"
+          className="menu-trigger cursor-pointer"
           onClick={() => {
             setOpen(!open);
           }}

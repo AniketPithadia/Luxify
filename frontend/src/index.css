@@ -7,9 +7,9 @@ body {
 .LogoContainer {
   width: 180px;
   height: 50px;
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     width: 160px;
-    margin-left: -40px;
+    margin-left: -34px;
   }
 }
 .LogoContainer img {
